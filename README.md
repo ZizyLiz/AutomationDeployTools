@@ -23,9 +23,10 @@ Install :
 Usage : `./main.sh` or `sudo ./main.sh`
 
 Thanks to :
-projectdiscovery
-hahwul
-tomnomnom
-lc
-003random
-jaeles-project
+- projectdiscovery
+- hahwul
+- tomnomnom
+- emoe
+- lc
+- 003random
+- jaeles-project

@@ -21,6 +21,7 @@ Install :
 - Unfurl
 
 Usage : `./main.sh` or `sudo ./main.sh`
+Note : Add permission for execute `chmod +x ./main.sh ./checkgo.sh`
 
 Thanks to :
 - projectdiscovery

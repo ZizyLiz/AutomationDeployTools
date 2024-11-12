@@ -20,9 +20,23 @@ echo_error() {
 
 # Function to install jq if not present
 install_jq() {
-    echo_info "Installing 'jq' for JSON processing..."
+    echo_info "Installing 'jq'"
     sudo apt update -y
     sudo apt install -y jq
+}
+
+# Function to install curl if not present
+install_curl() {
+    echo_info "Installing 'curl'"
+    sudo apt update -y
+    sudo apt install -y curl
+}
+
+# Function to install wget if not present
+install_wget() {
+    echo_info "Installing 'wget'"
+    sudo apt update -y
+    sudo apt install -y wget
 }
 
 # Function to fetch the latest Go version from the official website
@@ -173,6 +187,7 @@ install_tools() {
         "github.com/lc/gau@latest"
         "github.com/003random/getJS@latest"
         "github.com/tomnomnom/unfurl@latest"
+        "github.com/projectdiscovery/httpx/cmd/httpx@latest"
     )
 
     VERIFICATION_TOOLS=(
@@ -191,6 +206,7 @@ install_tools() {
     "Gau gau"
     "GetJS getJS"
     "Unfurl unfurl"
+    "HttpX httpx"
     )
     echo_info "Installing tools..."
 

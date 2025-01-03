@@ -188,7 +188,7 @@ install_tools() {
         "github.com/003random/getJS@latest"
         "github.com/tomnomnom/unfurl@latest"
         "github.com/projectdiscovery/httpx/cmd/httpx@latest"
-        "go install github.com/d3mondev/cidrex@latest"
+        "github.com/d3mondev/cidrex@latest"
     )
 
     VERIFICATION_TOOLS=(

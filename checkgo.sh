@@ -3,12 +3,14 @@
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
-# Uncomment the following line to enable debugging (prints each command before execution)
-#set -x
 
 # Function to print informational messages in green
 echo_info() {
-    echo -e "\e[32m[INFO]\e[0m $1"
+    echo -e "\e[34m[INFO]\e[0m $1"
+}
+
+echo_success() {
+    echo -e "\e[32m[SUCCESS]\e[0m $1"
 }
 
 # Function to print error messages in red
@@ -18,9 +20,23 @@ echo_error() {
 
 # Function to install jq if not present
 install_jq() {
-    echo_info "Installing 'jq' for JSON processing..."
+    echo_info "Installing 'jq'"
     sudo apt update -y
     sudo apt install -y jq
+}
+
+# Function to install curl if not present
+install_curl() {
+    echo_info "Installing 'curl'"
+    sudo apt update -y
+    sudo apt install -y curl
+}
+
+# Function to install wget if not present
+install_wget() {
+    echo_info "Installing 'wget'"
+    sudo apt update -y
+    sudo apt install -y wget
 }
 
 # Function to fetch the latest Go version from the official website
@@ -61,7 +77,7 @@ fetch_latest_go_version() {
 # Initialize GO_INSTALLED as false
 GO_INSTALLED=false
 
-# Function to check Go installation and version
+# Function to check Go installation and the version
 check_go() {
     echo_info "Checking if Go is installed..."
 
@@ -94,7 +110,7 @@ install_go() {
         sudo rm -rf /usr/local/go
     fi
 
-    # Define Go version and download URL
+    # Define Go version and the Download URL
     GO_VERSION=$LATEST_GO_VERSION_NUMBER
     GO_TARBALL=go$GO_VERSION.linux-amd64.tar.gz
     GO_DOWNLOAD_URL=https://go.dev/dl/$GO_TARBALL

@@ -1,4 +1,4 @@
-This is Automation Script to Install some of Pentesting Tools
+This is Automation Script to Install some of Pentesting Tools for Linux
 
 What this script do ?
 

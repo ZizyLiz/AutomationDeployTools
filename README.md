@@ -19,6 +19,7 @@ Install :
 - Gau
 - GetJS
 - Unfurl
+- Cidrex
 
 Usage : `./main.sh` or `sudo ./main.sh`
 
@@ -32,3 +33,4 @@ Thanks to :
 - lc
 - 003random
 - jaeles-project
+- d3mondev

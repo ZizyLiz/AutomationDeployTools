@@ -188,6 +188,7 @@ install_tools() {
         "github.com/003random/getJS@latest"
         "github.com/tomnomnom/unfurl@latest"
         "github.com/projectdiscovery/httpx/cmd/httpx@latest"
+        "github.com/d3mondev/cidrex@latest"
     )
 
     VERIFICATION_TOOLS=(
@@ -207,6 +208,7 @@ install_tools() {
     "GetJS getJS"
     "Unfurl unfurl"
     "HttpX httpx"
+    "Cidrex cidrex"
     )
     echo_info "Installing tools..."
 

@@ -150,99 +150,6 @@ ensure_gopath_bin_in_path() {
     fi
 }
 
-# Function to install the tools
-install_tools(){
-
-    echo_info "Starting installation of Go-based tools..."
-
-    # List of tools to install: "RepositoryPath ExecutableName ToolName"
-    TOOLS=(
-        "github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest"
-        "github.com/projectdiscovery/subfinder/v2/cmd/subfinder@latest"
-        "github.com/projectdiscovery/httpx/cmd/httpx@latest"
-        "github.com/projectdiscovery/interactsh/cmd/interactsh-client@latest"
-        "github.com/hahwul/dalfox/v2@latest"
-        "github.com/ffuf/ffuf@latest"
-        "github.com/tomnomnom/qsreplace@latest"
-        "github.com/tomnomnom/anew@latest"
-        "github.com/tomnomnom/waybackurls@latest"
-        "github.com/Emoe/kxss@latest"
-        "github.com/tomnomnom/gf@latest"
-        "github.com/jaeles-project/gospider@latest"
-        "github.com/lc/gau@latest"
-        "github.com/003random/getJS@latest"
-        "github.com/tomnomnom/unfurl@latest"
-    )
-
-    echo_info "Installing tools..."
-
-    # Iterate over each tool and install it
-    for tool in "${TOOLS[@]}"; do
-        # Split the tool entry into repository path, executable name, and tool name
-        IFS=' ' read -r repo exec_name name <<< "$tool"
-        
-        # Check if the tool is already installed
-        if command -v "$exec_name" >/dev/null 2>&1; then
-            echo_info "$name is already installed. Skipping installation."
-            continue
-        fi
-
-        echo_info "Installing $name from $repo..."
-
-        # Attempt to install the tool
-        if go install "$repo"; then
-            echo_info "$name installed successfully."
-        else
-            echo_error "Failed to install $name. Please check the repository path and your Go setup."
-        fi
-    done
-
-    echo_info "All Go-based tools have been installed successfully."
-}
-
-# Check the tools installation.
-verify_tool_installation() {
-    local tool_name=$1
-    local exec_name=$(echo "$tool_name" | tr '[:upper:]' '[:lower:]')
-
-    if command -v "$exec_name" >/dev/null 2>&1; then
-        echo_info "$tool_name is available in PATH."
-    else
-        echo_error "$tool_name is NOT available in PATH. Please check your installation."
-    fi
-}
-
-# Function to verify all installed tools
-verify_all_tools() {
-    echo_info "Verifying installations of all Go-based tools..."
-
-    # List of tools with their executable names: "ToolName ExecutableName"
-    VERIFICATION_TOOLS=(
-        "Nuclei nuclei"
-        "Subfinder subfinder"
-        "Httpx httpx"
-        "Interactsh-Client interactsh-client"
-        "Dalfox dalfox"
-        "FFUF ffuf"
-        "QsReplace qsreplace"
-        "Anew anew"
-        "WaybackURLs waybackurls"
-        "Kxss kxss"
-        "Gf gf"
-        "Gospider gospider"
-        "Gau gau"
-        "GetJS getJS"
-        "Unfurl unfurl"
-    )
-
-    for tool in "${VERIFICATION_TOOLS[@]}"; do
-        IFS=' ' read -r name exec_name <<< "$tool"
-        verify_tool_installation "$name" "$exec_name"
-    done
-
-    echo_info "Verification of Go-based tools completed."
-}
-
 # Main Execution Flow
 
 # Step 1: Fetch the latest Go version
@@ -268,9 +175,3 @@ fi
 
 # Ensure that GOPATH/bin is in the PATH
 ensure_gopath_bin_in_path
-
-# Install the Go-based tools
-install_tools
-
-# Verify installations
-verify_all_tools

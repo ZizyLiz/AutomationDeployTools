@@ -21,7 +21,7 @@ Install :
 - Unfurl
 - Cidrex
 
-Usage : `./main.sh` or `sudo ./main.sh`
+Usage : `./main.sh` or `sudo ./main.sh` >> run `source ~/.bashrc` after running `main.sh`
 
 
 Thanks to :

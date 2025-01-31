@@ -20,6 +20,8 @@ Install :
 - GetJS
 - Unfurl
 - Cidrex
+- Gospider
+- Dirsearch
 
 Usage : `./main.sh` or `sudo ./main.sh` >> run `source ~/.bashrc` after running `main.sh`
 
@@ -33,6 +35,8 @@ Thanks to :
 - 003random
 - jaeles-project
 - d3mondev
+- jaeles-project
+- maurosoria
 
 
 >[!NOTE]

@@ -3,6 +3,20 @@
 # Exit immediately if a command exits with a non-zero status.
 set -e
 
+# Add gohttpx alias
+echo_gohtppx() {
+    if ! grep -q "alias gohttpx='/home/zizy/go/bin/httpx'" ~/.bashrc; then
+        echo_info "Adding gohttpx alias to .bashrc"
+        echo "" >> ~/.bashrc
+        echo "# Custom alias" >> ~/.bashrc
+        echo "alias gohttpx='/home/zizy/go/bin/httpx'" >> ~/.bashrc
+        source ~/.bashrc
+        echo_success "Added gohttpx alias"
+    else
+        echo_success "gohttpx alias already added"
+        source ~/.bashrc
+    fi
+}
 
 # Function to print informational messages in green
 echo_info() {
@@ -160,9 +174,10 @@ ensure_gopath_bin_in_path() {
         echo_info "Adding \$GOPATH/bin to PATH in ~/.bashrc..."
         echo 'export PATH=$PATH:$GOPATH/bin' >> ~/.bashrc
         export PATH=$PATH:$GOPATH/bin
-        echo_info "Added \$GOPATH/bin to PATH. Please restart your terminal or run 'source ~/.bashrc' to apply the changes."
+        source ~/.bashrc
+        echo_info "Added \$GOPATH/bin to PATH"
     else
-        echo_info "\$GOPATH/bin is already in your PATH."
+        echo_success "\$GOPATH/bin is already in your PATH."
     fi
 }
 
@@ -270,6 +285,7 @@ if [ -z "$GOPATH" ]; then
     echo_info "GOPATH is not set. Setting GOPATH to \$HOME/go..."
     export GOPATH=$HOME/go
     echo 'export GOPATH=$HOME/go' >> ~/.bashrc
+    source ~/.bashrc
 fi
 
 # Ensure that GOPATH/bin is in the PATH
@@ -277,3 +293,6 @@ ensure_gopath_bin_in_path
 
 # Install the Go-based tools
 install_tools
+
+# Add alias to .bashrc to prevent collision between httpx (python and go)
+echo_gohtppx

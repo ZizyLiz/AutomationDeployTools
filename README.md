@@ -23,10 +23,10 @@ Install :
 
 Usage : `./main.sh` or `sudo ./main.sh`
 
-Note : 
-
+[!NOTE]
 Add permission for execute `chmod +x ./main.sh ./checkgo.sh`
 `httpx` command changed to `gohttpx` to prevent collision between httpx python and go
+
 
 Thanks to :
 - projectdiscovery

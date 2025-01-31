@@ -24,8 +24,8 @@ Install :
 Usage : `./main.sh` or `sudo ./main.sh`
 
 >[!NOTE]
->Add permission for execute `chmod +x ./main.sh ./checkgo.sh`\
->`httpx` command changed to `gohttpx` to prevent collision between httpx python and go
+>Add permission for execute `chmod +x ./main.sh ./checkgo.sh`\.
+>`httpx` command changed to `gohttpx` to prevent collision between httpx python and go.
 
 
 Thanks to :

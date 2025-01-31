@@ -4,12 +4,14 @@
 set -e
 
 # Add gohttpx alias
-echo_gohtppx() {
-    if ! grep -q "alias gohttpx='/home/zizy/go/bin/httpx'" ~/.bashrc; then
+add_custom_alias(){
+    echo "# Custom Aliases" >> ~/.bashrc
+}
+
+add_gohttpx() {
+    if ! grep -q "alias gohttpx='~/go/bin/httpx'" ~/.bashrc; then
         echo_info "Adding gohttpx alias to .bashrc"
-        echo "" >> ~/.bashrc
-        echo "# Custom alias" >> ~/.bashrc
-        echo "alias gohttpx='/home/zizy/go/bin/httpx'" >> ~/.bashrc
+        echo "alias gohttpx='~/go/bin/httpx'" >> ~/.bashrc
         source ~/.bashrc
         echo_success "Added gohttpx alias"
     else
@@ -18,7 +20,7 @@ echo_gohtppx() {
     fi
 }
 
-# Function to print informational messages in green
+# Function to print informational messages
 echo_info() {
     echo -e "\e[34m[INFO]\e[0m $1"
 }
@@ -27,7 +29,7 @@ echo_success() {
     echo -e "\e[32m[SUCCESS]\e[0m $1"
 }
 
-# Function to print error messages in red
+# Function to print error messages
 echo_error() {
     echo -e "\e[31m[ERROR]\e[0m $1"
 }
@@ -44,6 +46,18 @@ install_curl() {
     echo_info "Installing 'curl'"
     sudo apt update -y
     sudo apt install -y curl
+}
+
+install_python3() {
+    echo_info "Installing 'python3'"
+    sudo apt update -y
+    sudo apt install -y python3-full
+}
+
+install_pipx() {
+    echo_info "Installing 'pipx'"
+    sudo apt update -y
+    sudo apt install -y pipx
 }
 
 # Function to install wget if not present
@@ -181,8 +195,20 @@ ensure_gopath_bin_in_path() {
     fi
 }
 
+ensure_pip_in_path(){
+    if [[ ":$PATH:" != *":$HOME/.local/bin:"* ]]; then
+        echo "Adding \$HOME/.local/bin to PATH in ~/.bashrc..."
+        echo 'export PATH=$PATH:$HOME/.local/bin' >> ~/.bashrc
+        export PATH=$PATH:$HOME/.local/bin
+        source ~/.bashrc
+        echo_info "Added \$HOME/.local/bin to PATH"
+    else
+        echo_success "\$HOME/.local/bin is already in your PATH."
+    fi
+}
+
 # Function to install the tools
-install_tools() {
+install_tools_go() {
     echo_info "Starting installation of Go-based tools..."
 
     # Repository of the `Tools`
@@ -264,6 +290,31 @@ install_tools() {
     echo_info "All Go-based tools have been installed or verified."
 }
 
+install_tools_pipx() {
+    echo_info "Starting installation of tools using Pipx..."
+
+    install_python3
+    install_pipx
+    # List of tools to verify (name and corresponding install command)
+    VERIFICATION_TOOLS=(
+        "Dirsearch dirsearch pipx install dirsearch"
+    )
+
+    # Loop through each tool and check if it is installed
+    for verification_tool in "${VERIFICATION_TOOLS[@]}"; do
+        # Split each tool entry into name, command name, and install command
+        IFS=' ' read -r name exec_name install_command <<< "$verification_tool"
+        
+        # Check if the tool's command is available
+        if ! command -v "$exec_name" &>/dev/null; then
+            echo_info "$name is not installed. Installing..."
+            eval "$install_command"  # Run the installation command
+        else
+            echo_info "$name is already installed."
+        fi
+    done
+}
+
 # Main Execution Flow
 
 # Step 1: Fetch the latest Go version
@@ -291,8 +342,14 @@ fi
 # Ensure that GOPATH/bin is in the PATH
 ensure_gopath_bin_in_path
 
-# Install the Go-based tools
-install_tools
+# Ensure that .local/bin is in the PATH
+ensure_pip_in_path
 
+# Install the Go-based tools
+install_tools_go
+
+install_tools_pipx
 # Add alias to .bashrc to prevent collision between httpx (python and go)
-echo_gohtppx
+add_gohttpx
+
+echo -e "\e[32m[IMPORTANT!]\e[0m \e[1;32mrun 'source ~/.bashrc' to ensure the PATH is updated\e[0m"

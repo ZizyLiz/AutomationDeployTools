@@ -23,7 +23,7 @@ Install :
 - Gospider
 - Dirsearch
 
-Usage : `./main.sh` (install to /home/user/go/bin) or `sudo ./main.sh` (to install the tools to /root/go/bin) >> run `source ~/.bashrc` after running `main.sh`
+Usage : `./main.sh` (install to /home/user/go/bin) or `sudo ./main.sh` (install to /root/go/bin) >> run `source ~/.bashrc` after running `main.sh`
 
 
 Thanks to :

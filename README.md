@@ -1,4 +1,4 @@
-This is Automation Script to Install some of Pentesting Tools for Linux
+This is Automation Script to Install some of Pentesting Tools for Debian based Linux.
 
 What this script do ?
 
@@ -23,7 +23,7 @@ Install :
 - Gospider
 - Dirsearch
 
-Usage : `./main.sh` (install to /home/user/go/bin) or `sudo ./main.sh` (install to /root/go/bin) >> run `source ~/.bashrc` after running `main.sh`
+Usage : `./main.sh` (install to /home/user/go/bin) >> run `source ~/.bashrc` after running `main.sh`
 
 
 Thanks to :

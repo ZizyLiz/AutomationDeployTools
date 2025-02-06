@@ -21,6 +21,7 @@ Install :
 - Unfurl
 - Cidrex
 - Gospider
+- Katana
 - Dirsearch
 
 Usage : `./main.sh` (install to /home/user/go/bin) >> run `source ~/.bashrc` after running `main.sh`

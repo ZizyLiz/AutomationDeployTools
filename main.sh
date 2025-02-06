@@ -230,6 +230,7 @@ install_tools_go() {
         "github.com/tomnomnom/unfurl@latest"
         "github.com/projectdiscovery/httpx/cmd/httpx@latest"
         "github.com/d3mondev/cidrex@latest"
+        "github.com/projectdiscovery/katana/cmd/katana@latest"
     )
 
     VERIFICATION_TOOLS=(
@@ -250,6 +251,7 @@ install_tools_go() {
     "Unfurl unfurl"
     "HttpX httpx"
     "Cidrex cidrex"
+    "Katana katana"
     )
     echo_info "Installing tools..."
 

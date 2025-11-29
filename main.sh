@@ -293,24 +293,43 @@ install_tools_pipx() {
 
     install_python3
     install_pipx
-    # List of tools to verify (name and corresponding install command)
+    ensure_pip_in_path
+    
+    # List of tools with format: "Name|ExecutableName|InstallCommand|InjectCommand(optional)"
+    # If no inject command is needed, leave it empty (e.g., "ToolName|executable|pipx install toolname|")
     VERIFICATION_TOOLS=(
-        "Dirsearch dirsearch pipx install dirsearch"
+        "Dirsearch|dirsearch|pipx install dirsearch|pipx inject dirsearch setuptools"
     )
 
     # Loop through each tool and check if it is installed
     for verification_tool in "${VERIFICATION_TOOLS[@]}"; do
-        # Split each tool entry into name, command name, and install command
-        IFS=' ' read -r name exec_name install_command <<< "$verification_tool"
+        # Split each tool entry using pipe (|) as delimiter
+        IFS='|' read -r name exec_name install_command inject_command <<< "$verification_tool"
         
         # Check if the tool's command is available
         if ! command -v "$exec_name" &>/dev/null; then
             echo_info "$name is not installed. Installing..."
-            eval "$install_command"  # Run the installation command
+            if eval "$install_command"; then
+                echo_success "$name installed successfully."
+                
+                # Only run inject command if it's not empty
+                if [ -n "$inject_command" ]; then
+                    echo_info "Injecting dependencies for $name..."
+                    if eval "$inject_command"; then
+                        echo_success "Dependencies injected successfully."
+                    else
+                        echo_error "Failed to inject dependencies for $name."
+                    fi
+                fi
+            else
+                echo_error "Failed to install $name."
+            fi
         else
-            echo_info "$name is already installed."
+            echo_info "$name is already installed. If the tools throw any errors, consider to run $inject_command"
         fi
     done
+    
+    echo_info "Pipx tools installation completed."
 }
 
 # Main Execution Flow

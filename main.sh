@@ -301,18 +301,14 @@ install_tools_pipx() {
         "Dirsearch|dirsearch|pipx install dirsearch|pipx inject dirsearch setuptools"
     )
 
-    # Loop through each tool and check if it is installed
     for verification_tool in "${VERIFICATION_TOOLS[@]}"; do
-        # Split each tool entry using pipe (|) as delimiter
         IFS='|' read -r name exec_name install_command inject_command <<< "$verification_tool"
         
-        # Check if the tool's command is available
         if ! command -v "$exec_name" &>/dev/null; then
             echo_info "$name is not installed. Installing..."
             if eval "$install_command"; then
                 echo_success "$name installed successfully."
                 
-                # Only run inject command if it's not empty
                 if [ -n "$inject_command" ]; then
                     echo_info "Injecting dependencies for $name..."
                     if eval "$inject_command"; then
@@ -332,15 +328,13 @@ install_tools_pipx() {
     echo_info "Pipx tools installation completed."
 }
 
-# Main Execution Flow
-
-# Step 1: Fetch the latest Go version
+# Fetch the latest Go version
 fetch_latest_go_version
 
-# Step 2: Check Go installation and version
+# Check Go installation and version
 check_go
 
-# Step 3: Exit with appropriate status code based on GO_INSTALLED
+# Exit with appropriate status code based on GO_INSTALLED
 if [ "$GO_INSTALLED" = true ]; then
     echo_info "Go is up-to-date."
 else
@@ -348,7 +342,7 @@ else
     install_go
 fi
 
-# Step 4: Checking the GoPATH
+# Checking the GoPATH
 if [ -z "$GOPATH" ]; then
     echo_info "GOPATH is not set. Setting GOPATH to \$HOME/go..."
     export GOPATH=$HOME/go

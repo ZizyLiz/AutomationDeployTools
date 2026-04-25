@@ -298,7 +298,7 @@ install_tools_pipx() {
     # List of tools with format: "Name|ExecutableName|InstallCommand|InjectCommand(optional)"
     # If no inject command is needed, leave it empty (e.g., "ToolName|executable|pipx install toolname|")
     VERIFICATION_TOOLS=(
-        "Dirsearch|dirsearch|pipx install dirsearch|pipx inject dirsearch setuptools"
+        "Dirsearch|dirsearch|pipx install dirsearch|pipx runpip dirsearch install "setuptools<70""
     )
 
     for verification_tool in "${VERIFICATION_TOOLS[@]}"; do
